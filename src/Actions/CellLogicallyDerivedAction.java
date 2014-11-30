@@ -13,6 +13,7 @@ public class CellLogicallyDerivedAction extends Action {
     
     public CellLogicallyDerivedAction(Cell c){
         this.c = c;
+        System.out.println("Logical Derived");
     }
     
     @Override

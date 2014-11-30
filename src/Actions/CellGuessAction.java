@@ -13,6 +13,7 @@ public class CellGuessAction extends Action{
     
     public CellGuessAction(Cell c){
         this.c = c;
+        System.out.println("Guess!");
     }
     
     @Override

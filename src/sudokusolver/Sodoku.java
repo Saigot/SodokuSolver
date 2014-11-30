@@ -106,7 +106,7 @@ public class Sodoku {
     
     public void makeGuess() throws UnsolveableException, OutOfGuessesException{
         Cell bestCell = null;
-        int size = 0;
+        int size = 10;
         for(Section r : rows){
             for(Cell c : r){
                 ArrayList guesses = c.getGuessList();

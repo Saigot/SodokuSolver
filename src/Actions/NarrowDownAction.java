@@ -15,6 +15,7 @@ public class NarrowDownAction extends Action{
     public NarrowDownAction(Cell c, Integer n) {
         this.c = c;
         this.n = n;
+        System.out.println("Narrow Down Occured");
     }
     
     

@@ -29,7 +29,7 @@ public class Section implements Iterable<Cell>{
         int cursor;
         @Override
         public boolean hasNext() {
-            return cursor == 8;
+            return cursor != 8;
         }
 
         @Override
