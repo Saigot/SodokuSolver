@@ -10,6 +10,17 @@ import java.util.Iterator;
 public class Section implements Iterable<Cell>{
 
     private Cell cells[] = new Cell[9];
+    
+    static int getBoxNum(final int x, final int y){
+        int col = x/3;
+        int row = y/3;
+        return row*3 + col;
+    }
+    static int getBoxIndex(final int x, final int y){
+        int col = x%3;
+        int row = y%3;
+        return row*3 + col;
+    }
     public Cell get(int x){
         return cells[x];
     }
@@ -26,16 +37,16 @@ public class Section implements Iterable<Cell>{
      // Inner class example
     private class SectionIterator implements
                     Iterator<Cell> {
-        int cursor;
+        int cursor = 0;
         @Override
         public boolean hasNext() {
-            return cursor != 8;
+            return cursor != 9;
         }
 
         @Override
         public Cell next() {
             cursor++;
-            return cells[cursor];
+            return cells[cursor-1];
         }
 
         @Override

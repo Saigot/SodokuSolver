@@ -13,13 +13,13 @@ public class CellGuessAction extends Action{
     
     public CellGuessAction(Cell c){
         this.c = c;
-        System.out.println("Guess!");
+        //System.out.println("Guess!");
     }
     
     @Override
     public  ArrayList<Action> revert(){
         c.revert();
-        return null;
+        return new ArrayList();
     }
     @Override
     public boolean chainEnd(){

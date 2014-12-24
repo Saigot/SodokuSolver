@@ -15,14 +15,14 @@ public class NarrowDownAction extends Action{
     public NarrowDownAction(Cell c, Integer n) {
         this.c = c;
         this.n = n;
-        System.out.println("Narrow Down Occured");
+        //System.out.println("Narrow Down Occured");
     }
     
     
     @Override
      public  ArrayList<Action> revert(){
         c.reAddValue(n);
-        return null;
+        return new ArrayList();
     }
     @Override
     public boolean chainEnd(){

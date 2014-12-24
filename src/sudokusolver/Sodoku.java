@@ -18,7 +18,7 @@ public class Sodoku {
     private Section box[] = new Section[9];
     public ArrayList<Action> actionChain = new ArrayList();
     
-    private ArrayList<Action> guessChain = new ArrayList();
+    //private ArrayList<Action> guessChain = new ArrayList();
     
     public Sodoku(){
         reset();
@@ -39,8 +39,7 @@ public class Sodoku {
                 Cell c = new Cell(x,y);
                 rows[x].set(y,c);
                 col[y].set(x,c);
-                int boxnum = ((y/3)*3-1) + (int)Math.ceil((x+1) /3.0);
-                box[boxnum].set(y%3 + x%3,c);
+                box[Section.getBoxNum(x, y)].set(Section.getBoxIndex(x, y),c);
             }
         }
     }
@@ -55,30 +54,36 @@ public class Sodoku {
     public void revert(){
         ArrayList<Action> toRemove = new ArrayList();
         ArrayList<Action> toAdd = new ArrayList();
-        for(Action a : guessChain){
+        for(Action a : actionChain){
             toAdd.addAll(a.revert());
             toRemove.add(a);
             if(a.chainEnd()){
                 break;
             }
         }
-        guessChain.removeAll(toRemove);
-        guessChain.addAll(toAdd);
+        actionChain.removeAll(toRemove);
+        actionChain.addAll(toAdd);
     }
     
     public void revertAll(){
-         for(Action a : guessChain){
+         for(Action a : actionChain){
             a.revert();
         }
-        guessChain.clear();
+        actionChain.clear();
     }
     
     public void Solve() throws OutOfGuessesException{
+        int guesses = 0;
         while(!isDone()){
             try{
                 makeGuess();
+                if(guesses % 100 == 0){
+                    print();
+                }
             }catch(UnsolveableException e){
                 revert();
+                System.out.println("Revert Guess");
+                print();
             }
         }
     }
@@ -97,7 +102,7 @@ public class Sodoku {
                c.narrowDown(val, guess ? this : null);
             }
         }
-        for(Cell c : box[changed.y-1 + (int)Math.ceil((changed.x+1) /3.0)]){
+        for(Cell c : box[Section.getBoxNum(changed.x, changed.y)]){
             if(c != changed){
                c.narrowDown(val, guess ? this : null);
             }
@@ -109,6 +114,9 @@ public class Sodoku {
         int size = 10;
         for(Section r : rows){
             for(Cell c : r){
+                if(c.getValue() != null){
+                    continue;
+                }
                 ArrayList guesses = c.getGuessList();
                 if(guesses.size() == 2){
                     set(c,(Integer) guesses.get(0),true);
@@ -132,5 +140,16 @@ public class Sodoku {
             }
         }
         return true;
+    }
+    public void print(){
+        for(Section s : rows){
+            String line = "|";
+            for(Cell c : s){
+                line += "|" + (c == null ? " " : (c.getValue() == null ? " " : c.getValue().toString()));
+            }
+            line+="||";
+            System.out.println(line);
+        }
+        System.out.println();
     }
 }

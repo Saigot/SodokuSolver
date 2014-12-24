@@ -15,14 +15,14 @@ public class FailedGuessAction extends Action{
     public FailedGuessAction(Cell c, Integer n) {
         this.c = c;
         this.n = n;
-        System.out.println("Failed Guess");
+        //System.out.println("Failed Guess");
     }
     
     
     @Override
      public  ArrayList<Action> revert(){
         c.removefailedGuess(n);
-        return null;
+        return new ArrayList();
     }
     @Override
     public boolean chainEnd(){

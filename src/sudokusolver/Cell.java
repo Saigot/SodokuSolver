@@ -32,8 +32,8 @@ public class Cell {
         }else if(possibleValues.size() == 1){
             if(s != null){
                 s.actionChain.add(new CellLogicallyDerivedAction(this));
+                s.set(this,  possibleValues.get(0),false);
             }
-            s.set(this,  possibleValues.get(0),false);
             return true;
         }
         return false;
@@ -63,7 +63,7 @@ public class Cell {
     
     public void resetPossibleValues(){
         possibleValues.clear();
-        for(int i = 0; i < 9; i++){
+        for(int i = 1; i <= 9; i++){
             possibleValues.add(i);
         }
     }
@@ -82,4 +82,9 @@ public class Cell {
     public Integer getValue(){
         return value;
     }
+    
+    /*@Override
+    public String toString(){
+        return "(" + Integer.toString(x) + "," + Integer.toString(y) + ") -> " + value == null ? "" : Integer.toString(value);
+    }*/
 }

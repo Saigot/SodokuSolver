@@ -13,13 +13,13 @@ public class CellLogicallyDerivedAction extends Action {
     
     public CellLogicallyDerivedAction(Cell c){
         this.c = c;
-        System.out.println("Logical Derived");
+        //System.out.println("Logical Derived");
     }
     
     @Override
     public  ArrayList<Action> revert(){
         c.undo();
-        return null;
+        return new ArrayList();
     }
     @Override
     public boolean chainEnd(){
