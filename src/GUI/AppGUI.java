@@ -9,10 +9,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,8 +32,15 @@ public class AppGUI implements ActionListener {
     GridLayout gridLayout = new GridLayout(10, 9);
     JTextField[] inputs = new JTextField[81];
     JPanel mainPanel = new JPanel();
+    
     JButton solve = new JButton("Solve");
     JButton clear = new JButton("Clear");
+    
+    JButton export = new JButton("export");
+    JButton importButton = new JButton("import");
+    
+    IOReader io = new IOReader();
+    JFileChooser fc = new JFileChooser();
     Sodoku s = new Sodoku();
 
     public void start() {
@@ -52,17 +62,21 @@ public class AppGUI implements ActionListener {
         form.add(mainPanel, BorderLayout.CENTER);
         solve.addActionListener(this);
         clear.addActionListener(this);
+        export.addActionListener(this);
+        importButton.addActionListener(this);
         JPanel buttons = new JPanel();
         buttons.add(solve);
         buttons.add(clear);
+        buttons.add(export);
+        buttons.add(importButton);
         form.add(buttons, BorderLayout.SOUTH);
         form.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case "Solve":
+        switch (e.getActionCommand().toLowerCase()) {
+            case "solve":
                 int n = 0;
                 s.reset();
                 for (JTextField c : inputs) {
@@ -108,7 +122,7 @@ public class AppGUI implements ActionListener {
                 }
                 System.out.println("DONE");
                 break;
-            case "Clear":
+            case "clear":
                 s.reset();
                 for (Component c : mainPanel.getComponents()) {
                     n = 0;
@@ -118,6 +132,32 @@ public class AppGUI implements ActionListener {
                     }
                 }
                 break;
+            case "export":
+                int returnValue = fc.showSaveDialog(form);
+                if(returnValue == JFileChooser.APPROVE_OPTION){
+                    File f = fc.getSelectedFile();
+                    String err = io.writeValues(f, inputs, ",");
+                    if (!err.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, err, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+                break;
+            case "import":
+                returnValue = fc.showOpenDialog(form);
+                if(returnValue == JFileChooser.APPROVE_OPTION){
+                    try {
+                        File f = fc.getSelectedFile();
+                        String err = io.readValues(f, inputs, ",");
+                        if(!err.isEmpty()){
+                            JOptionPane.showMessageDialog(null, err, "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(AppGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                break;
+                
         }
         
     }
