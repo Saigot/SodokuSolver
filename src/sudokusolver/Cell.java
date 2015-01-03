@@ -28,6 +28,9 @@ public class Cell {
         return possibleValues;
     }
     public boolean narrowDown(Integer n, Sodoku s) throws UnsolveableException{
+        if(value != null){
+            return false;
+        }
         boolean success = possibleValues.remove(n);
         if(success && s != null){
             s.actionChain.add(new NarrowDownAction(this,n));
