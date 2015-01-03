@@ -18,6 +18,7 @@ public class Cell {
     private ArrayList<Integer> failedGuesses = new ArrayList();
     int x;
     int y;
+    static public byte debugLevel;
     
     public void removefailedGuess(Integer n){
         failedGuesses.remove(n);

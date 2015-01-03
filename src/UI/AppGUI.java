@@ -1,4 +1,4 @@
-package GUI;
+package UI;
 
 import exception.OutOfGuessesException;
 import exception.UnsolveableException;
@@ -40,10 +40,18 @@ public class AppGUI implements ActionListener {
     JButton importButton = new JButton("import");
     
     IOReader io = new IOReader();
+    
+    //path is for debugging purposes
     JFileChooser fc = new JFileChooser();
     Sodoku s = new Sodoku();
+    
+    public static byte debugLevel;
+    public static final File debugFile = new File("C:\\Users\\Michael17\\Desktop\\Programs\\MyPrograms\\Java\\sudokuSolver\\TestPuzzles");
 
     public void start() {
+        if(debugLevel >= 1){
+            fc.setCurrentDirectory(debugFile);
+        }
         form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         form.setSize(new Dimension(600, 600));
         form.setLayout(new BorderLayout());
@@ -78,9 +86,10 @@ public class AppGUI implements ActionListener {
         switch (e.getActionCommand().toLowerCase()) {
             case "solve":
                 int n = 0;
+                //reset the internal sudoku puzzle
                 s.reset();
                 for (JTextField c : inputs) {
-                    String text = ((JTextField) c).getText();
+                    String text = c.getText();
                     if (!text.isEmpty()) {
                         int val = Integer.parseInt(text);
                         if (val < 1 || val > 9) {

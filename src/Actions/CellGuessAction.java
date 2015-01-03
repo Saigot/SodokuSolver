@@ -13,13 +13,18 @@ public class CellGuessAction extends Action{
     
     public CellGuessAction(Cell c){
         this.c = c;
-        //System.out.println("Guess!");
+        if(c.debugLevel >= 3){
+            System.out.println("Guess Action set \t to \t" + c.getValue());
+        }
     }
     
     @Override
     public  ArrayList<Action> revert(){
-        c.revert();
-        return new ArrayList();
+        ArrayList<Action> failedGuesses = c.revert();
+        if(c.debugLevel >= 3){
+            System.out.println("Guess reverted \t from \t" + c.getValue());
+        }
+        return failedGuesses;
     }
     @Override
     public boolean chainEnd(){

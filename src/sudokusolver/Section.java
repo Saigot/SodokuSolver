@@ -10,6 +10,8 @@ import java.util.Iterator;
 public class Section implements Iterable<Cell>{
 
     private Cell cells[] = new Cell[9];
+    static public byte debugLevel;
+    
     
     static int getBoxNum(final int x, final int y){
         int col = x/3;

@@ -15,13 +15,18 @@ public class NarrowDownAction extends Action{
     public NarrowDownAction(Cell c, Integer n) {
         this.c = c;
         this.n = n;
-        //System.out.println("Narrow Down Occured");
+        if(c.debugLevel >= 3){
+            System.out.println("Narrow Down set \t to \t" + c.getValue());
+        }
     }
     
     
     @Override
      public  ArrayList<Action> revert(){
         c.reAddValue(n);
+        if(c.debugLevel >= 3){
+            System.out.println("Narrow Down reverted \t from \t" + c.getValue());
+        }
         return new ArrayList();
     }
     @Override

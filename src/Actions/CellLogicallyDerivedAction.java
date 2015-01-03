@@ -13,12 +13,17 @@ public class CellLogicallyDerivedAction extends Action {
     
     public CellLogicallyDerivedAction(Cell c){
         this.c = c;
-        //System.out.println("Logical Derived");
+        if(c.debugLevel >= 3){
+            System.out.println("Logical Derived set \t to \t " + c.getValue());
+        }
     }
     
     @Override
     public  ArrayList<Action> revert(){
         c.undo();
+        if(c.debugLevel >= 3){
+            System.out.println("Logical Derived reverted \t from \t " + c.getValue());
+        }
         return new ArrayList();
     }
     @Override
