@@ -111,7 +111,7 @@ public class Sodoku {
         }
         for(Cell c : rows[changed.x]){
             if(c != changed){
-               c.narrowDown(val, guess ? this : null);
+               c.narrowDown(val, this);
             }
         }
         for(Cell c : col[changed.y]){
