@@ -99,5 +99,6 @@ public class SudokuSolver {
     public static void setDebugLevel(byte debugLevel){
         Cell.debugLevel = debugLevel;
         AppGUI.debugLevel = debugLevel;
+        Sodoku.debugLevel = debugLevel;
     }
 }

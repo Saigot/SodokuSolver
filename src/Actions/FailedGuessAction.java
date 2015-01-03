@@ -16,7 +16,7 @@ public class FailedGuessAction extends Action{
         this.c = c;
         this.n = n;
         if(c.debugLevel >= 3){
-            System.out.println("Failed Guess \t to \t" + c.getValue());
+            System.out.println("Failed Guess set \t to \t" + c);
         }
         //System.out.println("Failed Guess");
     }

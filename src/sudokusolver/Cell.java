@@ -23,6 +23,10 @@ public class Cell {
     public void removefailedGuess(Integer n){
         failedGuesses.remove(n);
     }
+    
+    public ArrayList<Integer> getPossibleValues(){
+        return possibleValues;
+    }
     public boolean narrowDown(Integer n, Sodoku s) throws UnsolveableException{
         boolean success = possibleValues.remove(n);
         if(success && s != null){
@@ -83,9 +87,12 @@ public class Cell {
     public Integer getValue(){
         return value;
     }
-    
-    /*@Override
+   
+    @Override
     public String toString(){
-        return "(" + Integer.toString(x) + "," + Integer.toString(y) + ") -> " + value == null ? "" : Integer.toString(value);
-    }*/
+        String ret = "";
+        ret += "(" + Integer.toString(x) + "," + Integer.toString(y) + ") -> ";
+        ret += (value == null ? "" : Integer.toString(value));
+        return ret;
+    }
 }

@@ -129,7 +129,6 @@ public class AppGUI implements ActionListener {
                         s.reset();
                     }
                 }
-                System.out.println("DONE");
                 break;
             case "clear":
                 s.reset();

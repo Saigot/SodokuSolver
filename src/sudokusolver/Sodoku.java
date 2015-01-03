@@ -17,6 +17,7 @@ public class Sodoku {
     private Section col[] = new Section[9];
     private Section box[] = new Section[9];
     public ArrayList<Action> actionChain = new ArrayList();
+    static public byte debugLevel;
     
     //private ArrayList<Action> guessChain = new ArrayList();
     
@@ -74,17 +75,33 @@ public class Sodoku {
     
     public void Solve() throws OutOfGuessesException{
         int guesses = 0;
+        int revisions = 0;
+        if(debugLevel >= 1){
+            System.out.println("--------------");
+            System.out.println("Solving Now");
+            System.out.println("--------------");
+        }
         while(!isDone()){
             try{
                 makeGuess();
-                if(guesses % 100 == 0){
-                    print();
+                guesses++;
+                if(debugLevel >= 1){
+                    if(guesses % 100 == 0 || debugLevel >= 3){
+                        print();
+                    }
                 }
             }catch(UnsolveableException e){
                 revert();
-                System.out.println("Revert Guess");
+                revisions++;
+                if(debugLevel >= 2){
+                    System.out.println("Revert Guess");
+                }
                 print();
             }
+        }
+        if(debugLevel >= 1){
+             System.out.println("DONE");
+             System.out.println("Guesses: " + guesses + "\t Revisions: " + revisions);
         }
     }
     public void set(Cell changed, Integer val, boolean guess) throws UnsolveableException{
@@ -142,7 +159,7 @@ public class Sodoku {
         return true;
     }
     public void print(){
-        for(Section s : rows){
+        for(Section s : col){
             String line = "|";
             for(Cell c : s){
                 line += "|" + (c == null ? " " : (c.getValue() == null ? " " : c.getValue().toString()));
