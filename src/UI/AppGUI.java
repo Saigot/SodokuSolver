@@ -46,10 +46,11 @@ public class AppGUI implements ActionListener {
     Sodoku s = new Sodoku();
     
     public static byte debugLevel;
-    public static final File debugFile = new File("C:\\Users\\Michael17\\Desktop\\Programs\\MyPrograms\\Java\\sudokuSolver\\TestPuzzles");
+    public static final File debugFile = new File("TestPuzzles");
 
     public void start() {
-        if(debugLevel >= 1){
+        if(debugLevel >= 1 && debugFile.exists()){
+            //a quick hack because I hate having to navigate to my source folder, replace debugFile with what you want
             fc.setCurrentDirectory(debugFile);
         }
         form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
