@@ -86,7 +86,7 @@ public class Sodoku {
                 makeGuess();
                 guesses++;
                 if(debugLevel >= 1){
-                    if(guesses % 100 == 0 || debugLevel >= 3){
+                    if(guesses % 100 == 0 || debugLevel >= 2){
                         print();
                     }
                 }
@@ -116,12 +116,12 @@ public class Sodoku {
         }
         for(Cell c : col[changed.y]){
             if(c != changed){
-               c.narrowDown(val, guess ? this : null);
+               c.narrowDown(val, this);
             }
         }
         for(Cell c : box[Section.getBoxNum(changed.x, changed.y)]){
             if(c != changed){
-               c.narrowDown(val, guess ? this : null);
+               c.narrowDown(val,this );
             }
         }
     }

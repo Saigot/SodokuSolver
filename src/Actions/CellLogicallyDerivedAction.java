@@ -13,7 +13,7 @@ public class CellLogicallyDerivedAction extends Action {
     
     public CellLogicallyDerivedAction(Cell c){
         this.c = c;
-        if(c.debugLevel >= 3){
+        if(c.debugLevel >= 2){
             //c is the object before it is set, so we have to change how it prints
             System.out.println("Logical Derived set \t to \t " + c + c.getPossibleValues().get(0));
         }
@@ -22,7 +22,7 @@ public class CellLogicallyDerivedAction extends Action {
     @Override
     public  ArrayList<Action> revert(){
         c.undo();
-        if(c.debugLevel >= 3){
+        if(c.debugLevel >= 2){
             System.out.println("Logical Derived reverted \t from \t " + c +  c.getPossibleValues().get(0));
         }
         return new ArrayList();

@@ -15,7 +15,7 @@ public class FailedGuessAction extends Action{
     public FailedGuessAction(Cell c, Integer n) {
         this.c = c;
         this.n = n;
-        if(c.debugLevel >= 3){
+        if(c.debugLevel >= 2){
             System.out.println("Failed Guess set \t to \t" + c);
         }
         //System.out.println("Failed Guess");
@@ -25,7 +25,7 @@ public class FailedGuessAction extends Action{
     @Override
      public  ArrayList<Action> revert(){
         c.removefailedGuess(n);
-        if(c.debugLevel >= 3){
+        if(c.debugLevel >= 2){
             System.out.println("Failed Guess reverted \t from \t" + c.getValue());
         }
         return new ArrayList();

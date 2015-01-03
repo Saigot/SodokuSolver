@@ -13,7 +13,7 @@ public class CellGuessAction extends Action{
     
     public CellGuessAction(Cell c){
         this.c = c;
-        if(c.debugLevel >= 3){
+        if(c.debugLevel >= 2){
             System.out.println("Guess Action set \t to \t" + c);
         }
     }
@@ -21,7 +21,7 @@ public class CellGuessAction extends Action{
     @Override
     public  ArrayList<Action> revert(){
         ArrayList<Action> failedGuesses = c.revert();
-        if(c.debugLevel >= 3){
+        if(c.debugLevel >= 2){
             System.out.println("Guess reverted \t from \t" + c);
         }
         return failedGuesses;
